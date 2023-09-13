@@ -20,6 +20,7 @@ import { fetchProjectId } from "./utils/metadata.js";
  * Initialize app and start Express server
  */
 const main = async () => {
+  console.log("hello")
   let project = process.env.GOOGLE_CLOUD_PROJECT;
   if (!project) {
     try {

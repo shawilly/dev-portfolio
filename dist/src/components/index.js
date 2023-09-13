@@ -1,0 +1,27 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.StarsCanvas = exports.ComputersCanvas = exports.BallCanvas = exports.EarthCanvas = exports.Contact = exports.Feedback = exports.Works = exports.Experience = exports.Tech = exports.About = exports.Navbar = exports.Hero = void 0;
+const canvas_1 = require("./canvas");
+Object.defineProperty(exports, "EarthCanvas", { enumerable: true, get: function () { return canvas_1.EarthCanvas; } });
+Object.defineProperty(exports, "BallCanvas", { enumerable: true, get: function () { return canvas_1.BallCanvas; } });
+Object.defineProperty(exports, "ComputersCanvas", { enumerable: true, get: function () { return canvas_1.ComputersCanvas; } });
+Object.defineProperty(exports, "StarsCanvas", { enumerable: true, get: function () { return canvas_1.StarsCanvas; } });
+const Hero_1 = __importDefault(require("./Hero"));
+exports.Hero = Hero_1.default;
+const Navbar_1 = __importDefault(require("./Navbar"));
+exports.Navbar = Navbar_1.default;
+const About_1 = __importDefault(require("./About"));
+exports.About = About_1.default;
+const Tech_1 = __importDefault(require("./Tech"));
+exports.Tech = Tech_1.default;
+const Experience_1 = __importDefault(require("./Experience"));
+exports.Experience = Experience_1.default;
+const Works_1 = __importDefault(require("./Works"));
+exports.Works = Works_1.default;
+const Feedback_1 = __importDefault(require("./Feedback"));
+exports.Feedback = Feedback_1.default;
+const Contact_1 = __importDefault(require("./Contact"));
+exports.Contact = Contact_1.default;

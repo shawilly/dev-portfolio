@@ -4,7 +4,7 @@
     "node": true,
     "es6": true
   },
-  "extends": ["google", "prettier"],
+  "extends": ["airbnb-base", "google", "prettier", "plugin:react/recommended"],
   "globals": {
     "Atomics": "readonly",
     "SharedArrayBuffer": "readonly"
@@ -13,12 +13,21 @@
     "ecmaVersion": 2020,
     "sourceType": "module"
   },
-  "plugins": ["prettier"],
+  "plugins": ["prettier", "react"],
   "rules": {
     "prettier/prettier": [
       "error",
       { "singleQuote": false, "quoteProps": "double" }
     ],
-    "quotes": ["error", "double"]
+    "quotes": ["error", "double"],
+    "max-len": ["error", 80, 2],
+    "object-curly-newline": ["error", { "consistent": true }],
+    "no-param-reassign": ["error", { "props": false }]
+    // Additional React-specific rules can be added here
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
   }
 }
