@@ -87,7 +87,7 @@ steps:
       gcloud run services delete ${_SERVICE_NAME}-$BUILD_ID --region ${_DEPLOY_REGION} --quiet
 
 substitutions:
-  _GCR_HOSTNAME: europe-west2-docker.pkg.dev
+  _GCR_HOSTNAME: us-central1-docker.pkg.dev
   _SERVICE_NAME: microservice-template
-  _DEPLOY_REGION: europe-west2
+  _DEPLOY_REGION: us-central1
   _REPOSITORY: samples
