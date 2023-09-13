@@ -1,9 +1,9 @@
 {
-  "name": "cloud-run-microservice-template",
+  "name": "sbw-portfolio",
   "version": "1.0.0",
-  "description": "Microservice template for Cloud Run",
+  "description": "React + Vite App Deployed to Cloud Run",
   "main": "index.js",
-  "type": "commonjs",
+  "type": "module",
   "engines": {
     "node": ">=16"
   },
