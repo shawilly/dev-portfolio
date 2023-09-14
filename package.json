@@ -41,5 +41,16 @@
     "mocha": "^10.0.0",
     "nodemon": "^3.0.0",
     "supertest": "^6.1.3"
-  }
+  },
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shawilly/dev-portfolio.git"
+  },
+  "bugs": {
+    "url": "https://github.com/shawilly/dev-portfolio/issues"
+  },
+  "homepage": "https://github.com/shawilly/dev-portfolio#readme"
 }
