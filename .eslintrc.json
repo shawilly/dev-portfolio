@@ -17,7 +17,7 @@
   "rules": {
     "prettier/prettier": [
       "error",
-      { "singleQuote": false, "quoteProps": "consistent" }
+      { "singleQuote": true, "quoteProps": "consistent" }
     ],
     "quotes": ["error", "double"],
     "max-len": ["error", 80, 2],
