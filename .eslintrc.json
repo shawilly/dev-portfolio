@@ -16,7 +16,7 @@
   "plugins": ["prettier", "react"],
   "rules": {
     "prettier/prettier": "error",
-    "no-return-await": "error",
+    "no-return-await": "error"
   },
   "settings": {
     "react": {
