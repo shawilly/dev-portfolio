@@ -12,25 +12,25 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-'use strict';
+"use strict";
 
-import assert from 'assert';
-import got from 'got';
+import assert from "assert";
+import got from "got";
 
-describe('System Tests', () => {
-  const {BASE_URL, ID_TOKEN} = process.env;
+describe("System Tests", () => {
+  const { BASE_URL, ID_TOKEN } = process.env;
 
   before(async () => {
-    if (!BASE_URL) throw Error('Cloud Run service URL not found');
-    if (!ID_TOKEN) throw Error('Unable to acquire an ID token.');
+    if (!BASE_URL) throw Error("Cloud Run service URL not found");
+    if (!ID_TOKEN) throw Error("Unable to acquire an ID token.");
   });
 
-  it('can successfully make a request', async () => {
+  it("can successfully make a request", async () => {
     const options = {
       headers: {
         Authorization: `Bearer ${ID_TOKEN}`,
       },
-      method: 'GET',
+      method: "GET",
       throwHttpErrors: false,
       retry: {
         limit: 6,
@@ -38,6 +38,6 @@ describe('System Tests', () => {
     };
     const response = await got(BASE_URL, options);
     assert.strictEqual(response.statusCode, 200);
-    assert.strictEqual(response.body, 'Hello World!');
+    assert.strictEqual(response.body, "Hello World!");
   });
 });

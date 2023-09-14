@@ -19,7 +19,9 @@ const ErrorModal: React.FC<ErrorModalProps> = ({ error, onClose }) => {
   }
 
   return (
-    <div className={`${styles.padding} w-[800px] h-[800px] fixed inset-0 flex items-center justify-center z-50`}>
+    <div
+      className={`${styles.padding} w-[800px] h-[800px] fixed inset-0 flex items-center justify-center z-50`}
+    >
       <div className="bg-white opacity-91 p-6 rounded-xl shadow-md">
         <h2 className="text-xl text-[#ff0000] font-semibold mb-4">Error</h2>
         <p className="mb-4 text-black bold items-centre">

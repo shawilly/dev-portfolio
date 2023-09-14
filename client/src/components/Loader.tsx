@@ -31,5 +31,3 @@ const CanvasLoader: React.FC = () => {
 };
 
 export default CanvasLoader;
-
-

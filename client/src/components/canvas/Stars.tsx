@@ -14,7 +14,7 @@ const Stars: React.FC = () => {
 
   const [sphere] = useState(
     () =>
-      random.inSphere(new Float32Array(5000), { radius: 1.2 }) as Float32Array
+      random.inSphere(new Float32Array(5000), { radius: 1.2 }) as Float32Array,
   );
 
   // const [sphere] = useState(() => {

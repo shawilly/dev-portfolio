@@ -12,8 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import Pino from 'pino';
-import PinoHttp from 'pino-http';
+import Pino from "pino";
+import PinoHttp from "pino-http";
 
 /**
  * Set project Id for log correlation in request-based logger
@@ -42,7 +42,7 @@ const formatters = {
 export const logger = Pino({
   formatters,
   // Set log message property name to "message" for automatic parsing
-  messageKey: 'message',
+  messageKey: "message",
 });
 
 /**
@@ -52,14 +52,14 @@ export const logger = Pino({
 export const pinoHttp = PinoHttp({
   logger,
   reqCustomProps: function (req) {
-    const traceHeader = req.header('X-Cloud-Trace-Context');
+    const traceHeader = req.header("X-Cloud-Trace-Context");
     let trace;
     if (traceHeader) {
-      const [traceId] = traceHeader.split('/');
+      const [traceId] = traceHeader.split("/");
       trace = `projects/${project}/traces/${traceId}`;
     }
     return {
-      'logging.googleapis.com/trace': trace,
+      "logging.googleapis.com/trace": trace,
     };
   },
 });

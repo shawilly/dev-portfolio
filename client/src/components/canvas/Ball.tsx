@@ -57,9 +57,9 @@ const BallSection: React.FC<BallSectionProps> = ({ technologyImgUrl }) => {
       dpr={[1, 2]}
       gl={{ preserveDrawingBuffer: true }}
     >
-        <OrbitControls enableZoom={false} />
-        <Ball technologyImgUrl={technologyImgUrl as string} />
-        <Preload all />
+      <OrbitControls enableZoom={false} />
+      <Ball technologyImgUrl={technologyImgUrl as string} />
+      <Preload all />
     </Canvas>
   );
 };

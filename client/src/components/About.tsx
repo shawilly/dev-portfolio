@@ -23,7 +23,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ index, title, icon }) => {
     "right" as VariantDirection,
     "spring" as TransitionType,
     (0.5 * index) as TransitionDelay,
-    0.75 as TransitionDuration
+    0.75 as TransitionDuration,
   );
   return (
     <Tilt className="xs:w-[250px] w-full">

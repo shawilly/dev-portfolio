@@ -47,17 +47,17 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({ experience }) => {
           {experience.company_name}
         </p>
         <div className="absolute inset-0 flex justify-end m-3 card-img_hover">
-            <div
-              onClick={() => window.open(experience.linkedin_link, "_blank")}
-              className="blue-gradient w-10 h-10 rounded-full flex justify-center items-center cursor-pointer"
-            >
-              <img
-                src={linkedin as string}
-                alt="github"
-                className="w-5 h-5 object-contain"
-              />
-            </div>
+          <div
+            onClick={() => window.open(experience.linkedin_link, "_blank")}
+            className="blue-gradient w-10 h-10 rounded-full flex justify-center items-center cursor-pointer"
+          >
+            <img
+              src={linkedin as string}
+              alt="github"
+              className="w-5 h-5 object-contain"
+            />
           </div>
+        </div>
       </div>
       <ul className="mt-5 list-disc ml-5 space-y-2">
         {experience.points.map((point, index) => (

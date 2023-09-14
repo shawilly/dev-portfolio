@@ -12,8 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import gcpMetadata from 'gcp-metadata';
-import {GoogleAuth} from 'google-auth-library';
+import gcpMetadata from "gcp-metadata";
+import { GoogleAuth } from "google-auth-library";
 const auth = new GoogleAuth();
 
 /**
@@ -33,7 +33,7 @@ export async function fetchProjectId() {
 export async function fetchServiceRegion() {
   let region = undefined;
   if (gcpMetadata.isAvailable()) {
-    region = await gcpMetadata.instance('region');
+    region = await gcpMetadata.instance("region");
   }
   return region;
 }
@@ -47,6 +47,6 @@ export async function fetchServiceRegion() {
  */
 export async function authenticatedRequest(url, method) {
   const client = await auth.getIdTokenClient(url);
-  const response = await client.request({url, method});
+  const response = await client.request({ url, method });
   return response;
 }

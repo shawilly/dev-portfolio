@@ -9,5 +9,5 @@ export const testimonials: ITestimonial[] = [
     company: "BioRender",
     image:
       "https://media.licdn.com/dms/image/D5635AQH6wvKFudTokA/profile-framedphoto-shrink_400_400/0/1694490983173?e=1695207600&v=beta&t=DJ01IqdVQsSMvmCZF8Ru6Uqi9Texh3ehEIUynhf60OA",
-  }
+  },
 ];

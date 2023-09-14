@@ -12,23 +12,23 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-'use strict';
+"use strict";
 
-import app from '../app.js';
-import supertest from 'supertest';
+import app from "../app.js";
+import supertest from "supertest";
 
 let request;
 
-describe('Unit Tests', () => {
+describe("Unit Tests", () => {
   before(async () => {
     request = supertest(app);
   });
 
-  it('should respond OK to GET /', async () => {
-    await request.get('/').expect(200);
+  it("should respond OK to GET /", async () => {
+    await request.get("/").expect(200);
   });
 
-  it('should respond NOT FOUND to POST /', async () => {
-    await request.post('/').expect(404);
+  it("should respond NOT FOUND to POST /", async () => {
+    await request.post("/").expect(404);
   });
 });
