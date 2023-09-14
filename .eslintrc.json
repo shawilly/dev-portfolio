@@ -15,14 +15,12 @@
   },
   "plugins": ["prettier", "react"],
   "rules": {
-    "prettier/prettier": [
-      "error",
-      { "singleQuote": true, "quoteProps": "consistent" }
-    ],
     "quotes": ["error", "double"],
     "max-len": ["error", 80, 2],
     "object-curly-newline": ["error", { "consistent": true }],
-    "no-param-reassign": ["error", { "props": false }]
+    "no-param-reassign": ["error", { "props": false }],
+    "avoidEscape": true,
+    "allowTemplateLiterals": true
     // Additional React-specific rules can be added here
   },
   "settings": {
