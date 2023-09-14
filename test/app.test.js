@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+/* eslint-disable object-curly-spacing */
+/* eslint-disable quotes */
 "use strict";
 
 import app from "../app.js";
