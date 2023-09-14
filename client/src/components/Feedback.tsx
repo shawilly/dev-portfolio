@@ -27,36 +27,33 @@ const FeedbackCard: React.FC<FeedbackCardProp> = ({
     variants={fadeIn("", "spring", index * 0.5, 0.75)}
     className="bg-black-200 p-10 rounded-3xl xs:w-[320px] w-full"
   >
-    <motion.p
-      variants={textVariant()}
-      className="text-white font-black text-[48px]"
-    >
-      "
-    </motion.p>
-    <div className="mt-1"></div>
-    <motion.p
-      variants={fadeIn("", "spring", index * 0.75, 0.75)}
-      className="text-white text-[18px] tracking-wider"
-    >
-      {testimonial}
-    </motion.p>
-    <div className="mt-7 flex justify-between items-center gap-1">
-      <div className="flex flex-1 flex-col">
-        <p className="text-white font-medium text-[16px]">
-          <span className="blue-text-gradient">@</span>
-          {name}
-        </p>
-        <p className="mt-1 text-secondary text-[12px]">
-          {designation} of {company}
-        </p>
+    <p className="text-white font-black text-[48px]">"</p>
+
+    <div className="mt-1">
+      <p className="text-white tracking-wider text-[18px]">{testimonial}</p>
+      <div className="flex items-center mt-5">
+        <a href={linkedinLinks.recommendations} target="_blank" className="flex">
+          <img src={linkedin as string} alt="linkedin" className="w-5 h-5" />
+          <p className="ml-2 text-secondary text-[12px]">View on LinkedIn</p>
+        </a>
+      </div>
+      <div className="mt-7 flex justify-between padding-top-10 items-center gap-1">
+        <div className="flex-1 flex flex-col">
+          <p className="text-white font-medium text-[16px]">
+            <span className="blue-text-gradient">@</span> {name}
+          </p>
+          <p className="mt-1 text-secondary text-[12px]">
+            {designation} at {company}
+          </p>
+        </div>
         <ClickableComponent
-          className="w-10 h-10 rounded-full"
+          className="w-[65px] h-[65px] rounded-full"
           onClick={() => window.open(linkedinLinks.recommendations, "_blank")}
           component={() => (
             <img
               src={image}
               alt={`feedback-by-${name}`}
-              className="w-10 h-10 rounded-full"
+              className="w-[65px] h-[65px] rounded-full"
             />
           )}
         />
