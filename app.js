@@ -1,31 +1,34 @@
-import express from 'express';
-import { pinoHttp, logger } from './utils/logging.js';
-import path from 'path'; // Import the 'path' module
-import { fileURLToPath } from 'url';
+// Copyright 2021 Google LLC
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-console.log(__dirname)
+import express from 'express';
+import {pinoHttp, logger} from './utils/logging.js';
 
 const app = express();
 
 // Use request-based logger for log correlation
 app.use(pinoHttp);
 
-// Serve the React Vite app as a static asset
-app.use(express.static(path.join(__dirname, '/src/main.jsx')));
+app.use(express.static("client/build"));
 
-app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/public/about.html');
+// Example endpoint
+app.get('/', async (req, res) => {
+  // Use basic logger without HTTP request info
+  logger.info({logField: 'custom-entry', arbitraryField: 'custom-entry'}); // Example of structured logging
+  // Use request-based logger with log correlation
+  req.log.info('Child logger with trace Id.'); // https://cloud.google.com/run/docs/logging#correlate-logs
+  res.send('Hello World!');
 });
-
-// // Example endpoint
-// app.get('/', async (req, res) => {
-//   // Use basic logger without HTTP request info
-//   logger.info({ logField: 'custom-entry', arbitraryField: 'custom-entry' }); // Example of structured logging
-//   // Use request-based logger with log correlation
-//   req.log.info('Child logger with trace Id.'); // https://cloud.google.com/run/docs/logging#correlate-logs
-//   res.sendFile(path.join(__dirname, '/dist/assets/index-21a6d209.js'));
-// });
 
 export default app;

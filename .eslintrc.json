@@ -4,7 +4,7 @@
     "node": true,
     "es6": true
   },
-  "extends": ["airbnb-base", "google", "prettier", "plugin:react/recommended"],
+  "extends": ["google"],
   "globals": {
     "Atomics": "readonly",
     "SharedArrayBuffer": "readonly"
