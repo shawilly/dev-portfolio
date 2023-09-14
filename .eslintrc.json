@@ -13,10 +13,9 @@
     "ecmaVersion": 2020,
     "sourceType": "module"
   },
-  "plugins": ["prettier", "react"],
+  "plugins": ["prettier"],
   "rules": {
-    "prettier/prettier": "error",
-    "no-return-await": "error"
+    "prettier/prettier": "error"
   },
   "settings": {
     "react": {
