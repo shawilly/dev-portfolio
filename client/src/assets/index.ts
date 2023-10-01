@@ -32,6 +32,26 @@ import carrent from "./carrent.png";
 import jobit from "./jobit.png";
 import tripguide from "./tripguide.png";
 
+import aws from "./tools/aws.png";
+import cloudRun from "./tools/cloud-run.svg";
+import cloudBuild from "./tools/cloud-build.png";
+import elastic from "./tools/elastic.svg";
+import googleCloud from "./tools/google-cloud.png";
+import hubspot from "./tools/hubspot.svg";
+import intercom from "./tools/intercom.svg";
+import jira from "./tools/jira.svg";
+import kibana from "./tools/kibana.svg";
+import metabase from "./tools/metabase.svg";
+import miro from "./tools/miro.svg";
+import mongoDbCompass from "./tools/mongo-db-compass.png";
+import notion from "./tools/notion.png";
+import retool from "./tools/retool.svg";
+import sentry from "./tools/sentry.png";
+import slack from "./tools/slack.svg";
+import stripe from "./tools/stripe.png";
+import zapier from "./tools/zapier.svg";
+import zendesk from "./tools/zendesk.svg";
+
 export {
   logo,
   backend,
@@ -63,4 +83,23 @@ export {
   carrent,
   jobit,
   tripguide,
+  aws,
+  cloudRun,
+  cloudBuild,
+  elastic,
+  googleCloud,
+  hubspot,
+  intercom,
+  jira,
+  kibana,
+  metabase,
+  miro,
+  mongoDbCompass,
+  notion,
+  retool,
+  sentry,
+  slack,
+  stripe,
+  zapier,
+  zendesk,
 };

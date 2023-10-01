@@ -32,7 +32,11 @@ const FeedbackCard: React.FC<FeedbackCardProp> = ({
     <div className="mt-1">
       <p className="text-white tracking-wider text-[18px]">{testimonial}</p>
       <div className="flex items-center mt-5">
-        <a href={linkedinLinks.recommendations} target="_blank" className="flex">
+        <a
+          href={linkedinLinks.recommendations}
+          target="_blank"
+          className="flex"
+        >
           <img src={linkedin as string} alt="linkedin" className="w-5 h-5" />
           <p className="ml-2 text-secondary text-[12px]">View on LinkedIn</p>
         </a>
@@ -75,13 +79,11 @@ const FeedbackSection: React.FC<{}> = () => {
       </div>
       <div className={`-mt-20 pb-14 ${styles.paddingX} flex flex-wrap gap-7`}>
         {testimonials.map((testimonial, index) => (
-          <>
-            <FeedbackCard
-              key={testimonial.name}
-              index={index}
-              {...{ ...testimonial, image: testimonial.image as string }}
-            />
-          </>
+          <FeedbackCard
+            key={testimonial.name}
+            index={index}
+            {...{ ...testimonial, image: testimonial.image as string }}
+          />
         ))}
       </div>
     </div>

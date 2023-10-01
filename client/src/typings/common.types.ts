@@ -21,6 +21,11 @@ export interface ITechnology {
   technologyImgUrl: ImageFile;
 }
 
+export interface ITool {
+  name: string;
+  toolImgUrl: ImageFile;
+}
+
 export interface IService {
   title: string;
   icon: ImageFile;

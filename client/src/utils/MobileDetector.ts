@@ -1,25 +1,34 @@
 import { useState, useEffect } from "react";
 
-export const useMobileDetection: () => {
-  isMobile: boolean;
-  setIsMobile: React.Dispatch<React.SetStateAction<boolean>>;
-} = () => {
-  const [isMobile, setIsMobile] = useState<boolean>(false);
+export const useMediaQuery = (query: string): boolean => {
+  const getMatches = (query: string): boolean => {
+    // Prevents SSR issues
+    if (typeof window !== "undefined") {
+      return window.matchMedia(query).matches;
+    }
+    return false;
+  };
+
+  const [matches, setMatches] = useState<boolean>(getMatches(query));
+
+  const handleChange = () => {
+    setMatches(getMatches(query));
+  };
 
   useEffect(() => {
-    const mediaQuery: MediaQueryList = window.matchMedia("(max-width: 640px)");
-    setIsMobile(mediaQuery.matches);
+    const mediaQuery: MediaQueryList = window.matchMedia(query);
 
-    const handleMediaQueryChange = (e: MediaQueryListEvent): void => {
-      setIsMobile(e.matches);
-    };
+    setMatches(mediaQuery.matches);
 
-    mediaQuery.addEventListener("change", handleMediaQueryChange);
+    // Triggered at the first client-side load and if query changes
+    handleChange();
+
+    mediaQuery.addEventListener("change", handleChange);
 
     return () => {
-      mediaQuery.removeEventListener("change", handleMediaQueryChange);
+      mediaQuery.removeEventListener("change", handleChange);
     };
-  }, []);
+  }, [query]);
 
-  return { isMobile, setIsMobile };
+  return matches;
 };

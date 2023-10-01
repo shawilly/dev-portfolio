@@ -32,7 +32,7 @@ const ContactSection = () => {
   const [loading, setLoading] = useState(false);
 
   const formSetter = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const {
       target: { name, value },
@@ -44,7 +44,7 @@ const ContactSection = () => {
     formSetter(e);
 
   const handleTextAreaChange = (
-    e: React.ChangeEvent<HTMLTextAreaElement>,
+    e: React.ChangeEvent<HTMLTextAreaElement>
   ): void => formSetter(e);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -60,7 +60,7 @@ const ContactSection = () => {
           from_email: form.email,
           message: form.message,
         },
-        "2IvTkCMuCOiYXPDH5",
+        "2IvTkCMuCOiYXPDH5"
       );
       setLoading(false);
       alert("Thank you. I will get back to you as soon as possible");
@@ -69,13 +69,13 @@ const ContactSection = () => {
       setLoading(false);
       console.error(error);
       alert(
-        `Something went wrong. Please try again or reach out to me directly at ${contact.to_email}`,
+        `Something went wrong. Please try again or reach out to me directly at ${contact.to_email}`
       );
     }
   };
 
   const createFormFields = (
-    fields: { name: keyof FormInput; value: string }[],
+    fields: { name: keyof FormInput; value: string }[]
   ) =>
     fields.map((field) => {
       const { name, value } = field;
@@ -134,11 +134,9 @@ const ContactSection = () => {
           </button>
         </form>
         <h2 className="text-center text-secondary">I'm here too.</h2>
-        <p className="text-center overlay-grey">
-          {socialMediaLinks.map((link: string) => (
-            <SocialIcon url={link} />
-          ))}
-        </p>
+        {socialMediaLinks.map((link: string, index: number) => (
+          <SocialIcon url={link} key={index} />
+        ))}
       </motion.div>
       <motion.div
         variants={slideIn("right", "tween", 0.2, 1)}

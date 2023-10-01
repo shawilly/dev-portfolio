@@ -1,17 +1,17 @@
-import React, { Suspense, useEffect, useRef, useState } from "react";
+import React, { Suspense, useRef } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { OrbitControls, Preload, useGLTF } from "@react-three/drei";
 import Loader from "../Loader";
-import MyErrorBoundary from "../../hoc/ErrorBoundary";
 import { GLTF } from "three/examples/jsm/loaders/GLTFLoader";
-import { useMobileDetection } from "../../utils/MobileDetector";
+import { useMediaQuery } from "../../utils/MobileDetector";
+import ErrorBoundary from "../../hoc/ErrorBoundary";
 
 interface ComputersProps {
   isMobile: boolean;
 }
 
 const Computers: React.FC<ComputersProps> = ({ isMobile }) => {
-  const mesh = useRef<THREE.Mesh>(null!);
+  const mesh = useRef<THREE.Mesh>();
 
   useFrame(() => {
     if (mesh.current) {
@@ -25,26 +25,27 @@ const Computers: React.FC<ComputersProps> = ({ isMobile }) => {
   const position = isMobile ? [0, -2.5, -1] : [0, -3.25, -1.5];
 
   return (
-    <mesh>
-      <hemisphereLight intensity={0.25} groundColor="white" />
-      <pointLight intensity={1} />
-      <ambientLight intensity={1} />
-      <spotLight intensity={0.6} angle={0.2} penumbra={1} castShadow />
-      <primitive
-        object={computer.scene}
-        scale={scale}
-        position={position}
-        rotation={[-0.01, -0.2, -0.1]}
-      />
-    </mesh>
+    <ErrorBoundary>
+      <mesh position={[0, 0, 0]}>
+        <hemisphereLight intensity={0.25} groundColor="white" />
+        <pointLight intensity={1} />
+        <ambientLight intensity={1} />
+        <spotLight intensity={0.6} angle={0.2} penumbra={1} castShadow />
+        <primitive
+          object={computer.scene}
+          scale={scale}
+          position={position}
+          rotation={[-0.01, -0.2, -0.1]}
+        />
+      </mesh>
+    </ErrorBoundary>
   );
 };
 
 const ComputersCanvas: React.FC<{}> = () => {
-  const { isMobile } = useMobileDetection();
+  const isMobile = useMediaQuery("(max-width: 880px)");
 
   return (
-    // <MyErrorBoundary>
     <Canvas
       frameloop="demand"
       shadows
@@ -62,7 +63,6 @@ const ComputersCanvas: React.FC<{}> = () => {
         <Preload all />
       </Suspense>
     </Canvas>
-    // </MyErrorBoundary>
   );
 };
 

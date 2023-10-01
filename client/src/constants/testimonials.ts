@@ -8,7 +8,16 @@ export const testimonials: ITestimonial[] = [
     designation: "Staff Software Engineer",
     company: "BioRender",
     image:
-      "https://media.licdn.com/dms/image/D5635AQH6wvKFudTokA/profile-framedphoto-shrink_400_400/0/1694490983173?e=1695207600&v=beta&t=DJ01IqdVQsSMvmCZF8Ru6Uqi9Texh3ehEIUynhf60OA",
+      "https://cdn.theorg.com/f10923fa-bcc7-4cd5-a81b-0019e14de983_medium.jpg",
+  },
+  {
+    testimonial:
+      "His energy is infectious and motivating. Shane is super fast learner and an incredible performer. I wouldn't think twice at the opportunity to work with Shane again!",
+    name: "Roman Blyshchyk",
+    designation: "Senior Software Engineer",
+    company: "BioRender",
+    image:
+      "https://media.licdn.com/dms/image/C4D03AQHgPyFHdpfM-g/profile-displayphoto-shrink_400_400/0/1537751504806?e=1700697600&v=beta&t=-SKVpLDyDwv1qtkuQOB-spNI4-QitXCeU4GpnClX6yw",
   },
   {
     testimonial:

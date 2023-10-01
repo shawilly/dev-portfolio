@@ -24,7 +24,7 @@ const App: React.FC = () => {
           <About />
           <Experience />
           <Tech />
-          {/* Projects coming soon, most of my experience is in professional private repos */}
+          {/* Projects coming soon, all of my experience is in professional private repos */}
           {/* <Works /> */}
           <Feedback />
           <div className="relative z-0">
