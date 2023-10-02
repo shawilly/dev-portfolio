@@ -5,6 +5,8 @@ import { ToolPour } from "./canvas";
 import { tools } from "../constants/technologies";
 import { styles } from "../styles";
 import { useMediaQuery } from "../utils/MobileDetector";
+import { motion } from "framer-motion";
+import { fadeIn } from "../utils/motion";
 
 interface ToolRowsProps {
   toolLinks: string[];
@@ -46,7 +48,6 @@ const ToolRows = ({ toolLinks }: ToolRowsProps) => {
 };
 
 const TechSection: React.FC<{}> = () => {
-  const isMobile = useMediaQuery("(max-width: 880px)");
   const [isLoading, setIsLoading] = React.useState<boolean>(true);
 
   useEffect(() => {
@@ -56,31 +57,27 @@ const TechSection: React.FC<{}> = () => {
   }, []);
 
   return (
-    <div>
+    <motion.div
+      variants={fadeIn("", "spring", 1 * 0.5, 0.75)}
+      className="flex flex-col items-center justify-center w-full h-full"
+    >
+      <h1 className={`${styles.sectionHeadText} text-grey`}>
+        Things I've used.
+      </h1>
+      <p className={`${styles.sectionSubText} mt-2 text-white-100`}>
+        Keep clicking.
+      </p>
       <b></b>
-      <h3 className={`${styles.sectionSubText} p-10 padding-bottom-0`}>
-        Tools and Technologies I've used.
-      </h3>
-      <div className="w-full h-[50vh] max-h-[570px] flex flex-row flex-wrap justify-center gap-10 rounded-[50%]">
+      <div className="w-full h-[50vh] max-h-[570px] flex flex-row flex-wrap justify-center gap-10 rounded-[25%]">
         {isLoading ? ( // Show loading state when isLoading is true
           <div className="w-28 h-28">
-            {/* Add your loading state JSX here */}
             <div>Loading...</div>
           </div>
         ) : (
           <ToolPour technologies={technologies} tools={tools} />
         )}
       </div>
-      {/* <div>
-        <b></b>
-        <h3 className={`${styles.sectionSubText} p-10 padding-bottom-0`}>
-          Tools I've used.
-        </h3>
-        <div>
-          <ToolRows toolLinks={tools} />
-        </div>
-      </div> */}
-    </div>
+    </motion.div>
   );
 };
 

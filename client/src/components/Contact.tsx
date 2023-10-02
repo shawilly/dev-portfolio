@@ -133,10 +133,14 @@ const ContactSection = () => {
             {loading ? "Sending..." : "Send"}
           </button>
         </form>
-        <h2 className="text-center text-secondary">I'm here too.</h2>
-        {socialMediaLinks.map((link: string, index: number) => (
-          <SocialIcon url={link} key={index} />
-        ))}
+        <h2 className="text-center text-secondary items-center">
+          I'm here too.
+        </h2>
+        <div className="flex justify-center items-center gap-4 mt-4">
+          {socialMediaLinks.map((link: string, index: number) => (
+            <SocialIcon url={link} key={index} />
+          ))}
+        </div>
       </motion.div>
       <motion.div
         variants={slideIn("right", "tween", 0.2, 1)}

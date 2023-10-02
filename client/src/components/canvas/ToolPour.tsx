@@ -1,105 +1,66 @@
-import React, { useCallback, useMemo, useRef, useState } from "react";
-import type { PlaneProps, Triplet } from "@react-three/cannon";
-import { Physics, useBox, usePlane, useSphere } from "@react-three/cannon";
-import { Canvas, useFrame } from "@react-three/fiber";
+import type { PlaneProps } from "@react-three/cannon";
+import { Physics, useBox, usePlane } from "@react-three/cannon";
+import { Decal, useTexture } from "@react-three/drei";
+import { Canvas } from "@react-three/fiber";
+import React, { useRef, useState } from "react";
 import type { InstancedMesh, Mesh } from "three";
-import { Color } from "three";
 import { ITechnology, ITool } from "../../typings/common.types";
-import { Decal, useTexture, OrbitControls, Float } from "@react-three/drei";
-
-const niceColors = [
-  "#cdb4db",
-  "#ffc8dd",
-  "#ffafcc",
-  "#bde0fe",
-  "#a2d2ff",
-] as const;
+import catImage from "../../assets/cat.png";
 
 function Plane(props: PlaneProps) {
-  const [ref] = usePlane(() => ({ ...props }), useRef<Mesh>(null));
+  const [ref] = usePlane(
+    () => ({ rotation: [-Math.PI / 2, 0, 0], ...props }),
+    useRef<Mesh>(null)
+  );
   return (
     <mesh ref={ref} receiveShadow>
       <planeGeometry args={[1000, 1000]} />
-      <shadowMaterial color="#171717" transparent opacity={0.4} />
+      <shadowMaterial color="#171717" transparent opacity={0.3} />
     </mesh>
   );
 }
 
 type InstancedGeometryProps = {
-  colors: Float32Array;
-  number: number;
-  size: number;
-  decals: string[];
+  image: string;
+  position: [number, number, number];
 };
 
-const Spheres = ({ decals, colors, number, size }: InstancedGeometryProps) => {
-  const [decal] = useTexture([decals[0]]);
-  const [ref, { at }] = useSphere(
+const Box = ({ image, position }: InstancedGeometryProps) => {
+  const [hovered, hover] = useState(false);
+  const [clicked, click] = useState(false);
+  const [cat] = useTexture([catImage as string]);
+  const [decal] = useTexture([image]);
+  const [ref] = useBox(
     () => ({
-      args: [size],
       mass: 1,
+      position: position,
       rotation: [0.4, 0.2, 0.5],
-      position: [Math.random() - 0.5, Math.random() * 2, Math.random() - 0.5],
     }),
     useRef<InstancedMesh>(null)
   );
-  useFrame(() =>
-    at(Math.floor(Math.random() * number)).position.set(0, Math.random() * 2, 0)
-  );
   return (
-    <mesh receiveShadow castShadow ref={ref}>
-      <icosahedronGeometry args={[1, 1]}>
-        <instancedBufferAttribute
-          attach="attributes-color"
-          args={[colors, 3]}
-        />
-      </icosahedronGeometry>
-      <meshLambertMaterial vertexColors />
+    <mesh
+      receiveShadow
+      castShadow
+      ref={ref}
+      scale={1}
+      onClick={() => click(!clicked)}
+      onPointerOver={() => hover(true)}
+      onPointerOut={() => hover(false)}
+    >
+      <boxGeometry args={[1, 1]} />
+      <meshStandardMaterial
+        polygonOffset
+        polygonOffsetFactor={-0.01}
+        color={hovered ? "#549fcf" : "#cff6ff"}
+      />
       <Decal
+        map={clicked ? cat : decal}
+        rotation={[0, 0, 0]}
         position={[0, 0, 1]}
-        rotation={[2 * Math.PI, 0, 6.25]}
-        scale={1}
-        map={decal}
+        scale={[0.6, 0.6, 1.2]}
       />
     </mesh>
-  );
-};
-
-const Boxes = ({ decals, colors, number, size }: InstancedGeometryProps) => {
-  const [decal] = useTexture([decals[0]]);
-  const args: Triplet = [size, size, size];
-  const [ref, { at }] = useBox(
-    () => ({
-      args,
-      mass: 1,
-      rotation: [0.4, 0.2, 0.5],
-      position: [Math.random() - 0.5, Math.random() * 2, Math.random() - 0.5],
-    }),
-    useRef<InstancedMesh>(null)
-  );
-  useFrame(() =>
-    at(Math.floor(Math.random() * number)).position.set(0, Math.random() * 2, 0)
-  );
-  return (
-    <Float speed={1.75} rotationIntensity={1} floatIntensity={2}>
-      <ambientLight intensity={0.25} />
-      <directionalLight position={[0, 0, 0.05]} />
-      <mesh receiveShadow castShadow ref={ref}>
-        <boxGeometry args={args}>
-          <instancedBufferAttribute
-            attach="attributes-color"
-            args={[colors, 3]}
-          />
-        </boxGeometry>
-        <meshLambertMaterial vertexColors />
-        <Decal
-          // position={[0, 0, 1]}
-          // rotation={[2 * Math.PI, 0, 6.25]}
-          scale={1}
-          map={decal}
-        />
-      </mesh>
-    </Float>
   );
 };
 
@@ -108,83 +69,91 @@ interface ToolPourProps {
   tools: ITool[];
 }
 
-enum SHAPES {
-  BOX = "box",
-  SPHERE = "sphere",
+enum TECH {
+  TECH = "tech",
+  TOOLS = "tools",
 }
 
 const ToolPour = ({ technologies, tools }: ToolPourProps) => {
-  const technologyImages: string[] = technologies.map(
-    (t) => t.technologyImgUrl as string
-  );
-  const toolImages: string[] = tools.map((t) => t.toolImgUrl as string);
-  const [geometry, setGeometry] = useState<SHAPES>(SHAPES.SPHERE);
-  const [number, setNumber] = useState<number>(tools.length);
-  const [decals, setDecals] = useState<string[]>(toolImages);
-  const [size, setSize] = useState<number>(0.5);
-
-  const setProps = useCallback((shape: SHAPES) => {
-    setGeometry(shape);
-    setNumber(technologies.length);
-    if (shape === SHAPES.SPHERE) {
-      setDecals(toolImages);
-      setSize(0.3);
-    } else {
-      setDecals(technologyImages);
-      setSize(0.4);
-    }
-  }, []);
-
-  const colors = useMemo(() => {
-    const array = new Float32Array(number * 3);
-    const color = new Color();
-    for (let i = 0; i < number; i++)
-      color
-        .set(niceColors[Math.floor(Math.random() * 5)])
-        .convertSRGBToLinear()
-        .toArray(array, i * 3);
-    return array;
-  }, [number]);
-
-  const instancedGeometry = {
-    box: Boxes,
-    sphere: Spheres,
+  const links = {
+    tech: technologies.map((t) => t.technologyImgUrl as string),
+    tools: tools.map((t) => t.toolImgUrl as string),
   };
 
-  const InstancedGeometry = instancedGeometry[geometry];
+  const [tech, setTech] = useState<TECH>(TECH.TECH);
+  const [techImages, setTechImages] = useState<string[]>([
+    links.tech[0],
+    links.tech[1],
+    links.tech[2],
+    links.tech[3],
+    links.tech[4],
+  ]);
+  const [toolImages, setToolImages] = useState<string[]>([
+    links.tools[0],
+    links.tools[1],
+    links.tools[2],
+    links.tools[3],
+    links.tools[4],
+  ]);
+  const [images, setImages] = useState<string[]>(techImages);
+
+  const setProps = (tech: TECH) => {
+    if (tech === TECH.TECH) {
+      setTechImages(getNextThreeImages(techImages, links.tech));
+      setImages(techImages);
+      setTech(TECH.TECH);
+    } else {
+      setToolImages(getNextThreeImages(toolImages, links.tools));
+      setImages(toolImages);
+      setTech(TECH.TOOLS);
+    }
+  };
 
   return (
     <Canvas
       shadows
-      gl={{
-        alpha: false,
-        preserveDrawingBuffer: true,
-      }}
+      dpr={[1, 2]}
+      gl={{ alpha: false }}
       camera={{ position: [-1, 5, 5], fov: 45 }}
       onPointerMissed={() =>
-        setProps(geometry === SHAPES.BOX ? SHAPES.SPHERE : SHAPES.BOX)
+        setProps(tech === TECH.TECH ? TECH.TOOLS : TECH.TECH)
       }
-      onCreated={({ scene }) => (scene.background = new Color("lightblue"))}
-      frameloop="always"
     >
-      <hemisphereLight intensity={0.35} />
-      //{" "}
-      <spotLight
-        position={[5, 5, 5]}
-        angle={0.3}
-        penumbra={1}
-        intensity={2}
+      <color attach="background" args={["lightblue"]} />
+      <ambientLight />
+      <directionalLight
+        position={[10, 10, 10]}
         castShadow
-        shadow-mapSize-width={256}
-        shadow-mapSize-height={256}
+        shadow-mapSize={[2048, 2048]}
       />
-      <Physics broadphase="SAP">
-        <Plane rotation={[-Math.PI / 2, 0, 0]} />
-        <OrbitControls enableZoom={false} />
-        <InstancedGeometry {...{ decals, colors, number, size }} />
+      <Physics>
+        <Plane position={[0, -2.5, 0]} />
+        <Box key={images[0]} image={images[0]} position={[0.1, 5, 0]} />
+        <Box key={images[1]} image={images[1]} position={[0, 10, -1]} />
+        <Box key={images[2]} image={images[2]} position={[0, 20, -2]} />
+        <Box key={images[3]} image={images[3]} position={[0.5, 7, -3]} />
+        <Box key={images[4]} image={images[4]} position={[2, 27, -2]} />
       </Physics>
     </Canvas>
   );
 };
 
 export default ToolPour;
+
+function getNextThreeImages(current: string[], array: string[]): string[] {
+  if (array.length < 3) {
+    throw new Error("The array must have at least 3 elements.");
+  }
+
+  const start = array.findIndex((el) => el === current[current.length - 1]) + 1;
+
+  const length = array.length;
+
+  const indexes = [];
+
+  for (let i = 0; i < 5; i++) {
+    indexes.push((start + i) % length);
+  }
+
+  return indexes.map((index) => array[index]);
+}

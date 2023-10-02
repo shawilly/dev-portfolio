@@ -52,7 +52,10 @@ import stripe from "./tools/stripe.png";
 import zapier from "./tools/zapier.svg";
 import zendesk from "./tools/zendesk.svg";
 
+import catImage from "./cat.png";
+
 export {
+  catImage,
   logo,
   backend,
   creator,
