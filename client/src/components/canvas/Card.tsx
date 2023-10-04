@@ -62,7 +62,7 @@ const Deck = ({ cards }: DeckProps) => {
           gone.clear();
           api.start((i) => to(i));
         }, 600);
-    }
+    },
   );
   // Now we're just mapping the animated values to our view, that's it. Btw, this component only renders once. :-)
   return (

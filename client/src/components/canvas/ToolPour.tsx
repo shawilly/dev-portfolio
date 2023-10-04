@@ -10,7 +10,7 @@ import catImage from "../../assets/cat.png";
 function Plane(props: PlaneProps) {
   const [ref] = usePlane(
     () => ({ rotation: [-Math.PI / 2, 0, 0], ...props }),
-    useRef<Mesh>(null)
+    useRef<Mesh>(null),
   );
   return (
     <mesh ref={ref} receiveShadow>
@@ -36,7 +36,7 @@ const Box = ({ image, position }: InstancedGeometryProps) => {
       position: position,
       rotation: [0.4, 0.2, 0.5],
     }),
-    useRef<InstancedMesh>(null)
+    useRef<InstancedMesh>(null),
   );
   return (
     <mesh
