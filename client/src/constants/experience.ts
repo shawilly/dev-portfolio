@@ -9,7 +9,7 @@ export const experiences: IExperience[] = [
     icon: innovapost,
     iconBg: "#383E56",
     date: "May 2013 - Jun 2015",
-    linkedin_link: linkedinLinks.experience,
+    linkedin_link: linkedinLinks.profile,
     points: [
       "Deployed JavaScript and MySQL scripts for team automation tasks and data handling.",
       "Served as the primary French-speaking agent during night shifts for a large client base.",
@@ -33,7 +33,7 @@ export const experiences: IExperience[] = [
     icon: dominion,
     iconBg: "#E6DEDD",
     date: "Sep 2017 - May 2018",
-    linkedin_link: linkedinLinks.experience,
+    linkedin_link: linkedinLinks.profile,
     points: [
       "Improved yeast culture reporting through aseptic techniques and microbiology knowledge.",
       "Enhanced food preservation, processing, and packaging methods through extensive product testing under various conditions.",
@@ -46,7 +46,7 @@ export const experiences: IExperience[] = [
     icon: biorender,
     iconBg: "#383E56",
     date: "Jan 2021 - Jun 2022",
-    linkedin_link: linkedinLinks.experience,
+    linkedin_link: linkedinLinks.profile,
     points: [
       "Pivotal CX support role, achieved >95% satisfaction.",
       "Led development on app development, resulting in >75% automation, 33% faster response time and 15% higher customer engagement.",
@@ -60,7 +60,7 @@ export const experiences: IExperience[] = [
     icon: dominion,
     iconBg: "#E6DEDD",
     date: "Jan 2021 - Present",
-    linkedin_link: linkedinLinks.experience,
+    linkedin_link: linkedinLinks.profile,
     points: [
       "Experienced Full-Stack Developer, 3+ years' experience.",
       "Deployed 5+ web solutions, >99.5% uptime.",
@@ -76,7 +76,7 @@ export const experiences: IExperience[] = [
     icon: biorender,
     iconBg: "#E6DEDD",
     date: "Jun 2022 - Present",
-    linkedin_link: linkedinLinks.experience,
+    linkedin_link: linkedinLinks.profile,
     points: [
       "Crucial role in enterprise team led to releasing of 2 major features, expanding customer base and boosting company growth.",
       "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
@@ -84,4 +84,4 @@ export const experiences: IExperience[] = [
       "Participating in code reviews and providing constructive feedback to other developers.",
     ],
   },
-];
+].reverse();

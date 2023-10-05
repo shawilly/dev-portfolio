@@ -1,21 +1,24 @@
 import type { PlaneProps } from "@react-three/cannon";
 import { Physics, useBox, usePlane } from "@react-three/cannon";
-import { Decal, useTexture } from "@react-three/drei";
+import { Decal, OrbitControls, useTexture } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
-import React, { useRef, useState } from "react";
+import React, { Suspense, useRef, useState } from "react";
 import type { InstancedMesh, Mesh } from "three";
-import { ITechnology, ITool } from "../../typings/common.types";
+import type { OrbitControls as OrbitControlsImpl } from "three-stdlib";
 import catImage from "../../assets/cat.png";
+import { ITechnology, ITool } from "../../typings/common.types";
+import { useMediaQuery } from "../../utils/MobileDetector";
+import Loader from "../Loader";
 
 function Plane(props: PlaneProps) {
   const [ref] = usePlane(
     () => ({ rotation: [-Math.PI / 2, 0, 0], ...props }),
-    useRef<Mesh>(null),
+    useRef<Mesh>(null)
   );
   return (
     <mesh ref={ref} receiveShadow>
       <planeGeometry args={[1000, 1000]} />
-      <shadowMaterial color="#171717" transparent opacity={0.3} />
+      <shadowMaterial color="#ffffff" transparent opacity={0.2} />
     </mesh>
   );
 }
@@ -36,7 +39,7 @@ const Box = ({ image, position }: InstancedGeometryProps) => {
       position: position,
       rotation: [0.4, 0.2, 0.5],
     }),
-    useRef<InstancedMesh>(null),
+    useRef<InstancedMesh>(null)
   );
   return (
     <mesh
@@ -75,6 +78,7 @@ enum TECH {
 }
 
 const ToolPour = ({ technologies, tools }: ToolPourProps) => {
+  const isMobile = useMediaQuery("(max-width: 880px)");
   const links = {
     tech: technologies.map((t) => t.technologyImgUrl as string),
     tools: tools.map((t) => t.toolImgUrl as string),
@@ -114,26 +118,32 @@ const ToolPour = ({ technologies, tools }: ToolPourProps) => {
       shadows
       dpr={[1, 2]}
       gl={{ alpha: false }}
-      camera={{ position: [-1, 5, 5], fov: 45 }}
+      camera={{
+        position: isMobile ? [-2.5, 3.6, 5] : [-1, 5, 5],
+        fov: isMobile ? 30 : 45,
+      }}
       onPointerMissed={() =>
         setProps(tech === TECH.TECH ? TECH.TOOLS : TECH.TECH)
       }
     >
-      <color attach="background" args={["lightblue"]} />
-      <ambientLight />
-      <directionalLight
-        position={[10, 10, 10]}
-        castShadow
-        shadow-mapSize={[2048, 2048]}
-      />
-      <Physics>
-        <Plane position={[0, -2.5, 0]} />
-        <Box key={images[0]} image={images[0]} position={[0.1, 5, 0]} />
-        <Box key={images[1]} image={images[1]} position={[0, 10, -1]} />
-        <Box key={images[2]} image={images[2]} position={[0, 20, -2]} />
-        <Box key={images[3]} image={images[3]} position={[0.5, 7, -3]} />
-        <Box key={images[4]} image={images[4]} position={[2, 27, -2]} />
-      </Physics>
+      <Suspense fallback={<Loader />}>
+        <color attach="background" args={["#060816"]} />
+        <ambientLight />
+        <directionalLight
+          position={[10, 10, 10]}
+          castShadow
+          shadow-mapSize={[2048, 2048]}
+        />
+        <OrbitControls enableRotate={false} enableZoom={false} />
+        <Physics>
+          <Plane position={[0, -2.5, 0]} />
+          <Box key={images[0]} image={images[0]} position={[0.1, 5, 0]} />
+          <Box key={images[1]} image={images[1]} position={[0, 10, -1]} />
+          <Box key={images[2]} image={images[2]} position={[1, 12, -0.5]} />
+          <Box key={images[3]} image={images[3]} position={[0.5, 7, -3]} />
+          <Box key={images[4]} image={images[4]} position={[2, 0, -2]} />
+        </Physics>
+      </Suspense>
     </Canvas>
   );
 };

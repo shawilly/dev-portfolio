@@ -13,18 +13,22 @@ import {
 } from "../utils/motion";
 import { SectionWrapper } from "../hoc";
 import { IService } from "../typings/common.types";
+import { useMediaQuery } from "../utils/MobileDetector";
 
 interface ServiceCardProps extends IService {
   index: number;
 }
 
 const ServiceCard: React.FC<ServiceCardProps> = ({ index, title, icon }) => {
+  const isMobile = useMediaQuery("(max-width: 530px)");
+
   const variant = fadeIn(
     "right" as VariantDirection,
     "spring" as TransitionType,
     (0.5 * index) as TransitionDelay,
-    0.75 as TransitionDuration,
+    0.75 as TransitionDuration
   );
+
   return (
     <Tilt className="xs:w-[250px] w-full">
       <motion.div

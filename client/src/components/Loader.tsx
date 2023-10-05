@@ -1,29 +1,14 @@
 import { Html, useProgress } from "@react-three/drei";
 import React from "react";
-import { HashLoader } from "react-spinners";
 
 const CanvasLoader: React.FC = () => {
   const { progress } = useProgress();
   return (
     <Html
       as="div"
-      center
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        flexDirection: "column",
-      }}
+      className="absolute top-0 left-0 w-full h-full flex flex-col justify-center items-center bg-gray-900 z-50"
     >
-      <HashLoader color="#aaa6c3" size={150} aria-label="Loading Spinner" />
-      <p
-        style={{
-          fontSize: 14,
-          color: "#F1F1F1",
-          fontWeight: 800,
-          marginTop: 40,
-        }}
-      >
+      <p className="text-center text-white text-2xl font-bold tracking-wider uppercase mt-4">
         {progress.toFixed(2)}%
       </p>
     </Html>

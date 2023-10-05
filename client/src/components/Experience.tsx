@@ -1,22 +1,25 @@
+import { motion } from "framer-motion";
 import React from "react";
 import {
   VerticalTimeline,
   VerticalTimelineElement,
 } from "react-vertical-timeline-component";
-import { motion } from "framer-motion";
 import "react-vertical-timeline-component/style.min.css";
-import { styles } from "../styles";
+import { linkedin } from "../assets";
 import { experiences } from "../constants";
 import { SectionWrapper } from "../hoc";
-import { textVariant } from "../utils/motion";
+import { styles } from "../styles";
 import { IExperience } from "../typings/common.types";
-import { linkedin } from "../assets";
+import { useMediaQuery } from "../utils/MobileDetector";
+import { textVariant } from "../utils/motion";
 
 interface ExperienceCardProps {
   experience: IExperience;
 }
 
 const ExperienceCard: React.FC<ExperienceCardProps> = ({ experience }) => {
+  const isMobile = useMediaQuery("(max-width: 530px)");
+
   return (
     <VerticalTimelineElement
       contentStyle={{
@@ -46,6 +49,36 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({ experience }) => {
         >
           {experience.company_name}
         </p>
+      </div>
+      <ul className="mt-5 list-disc ml-5 space-y-2">
+        {experience.points.map((point, index) => (
+          <li
+            key={`experience-point-${index}`}
+            className={
+              isMobile
+                ? `text-white-100 text-[11px]`
+                : `text-white-100 text-[14px] padding-left-1 tracking-wider`
+            }
+          >
+            {point}
+          </li>
+        ))}
+      </ul>
+      {isMobile ? (
+        <div className="flex items-center mt-5">
+          <a
+            href={experience.linkedin_link}
+            target="_blank"
+            className="flex opacity-75 hover:opacity-100"
+          >
+            <img
+              src={linkedin as string}
+              alt="linkedin"
+              className="w-10 justify-center items-center"
+            />
+          </a>
+        </div>
+      ) : (
         <div className="absolute inset-0 flex justify-end m-3 card-img_hover">
           <div
             onClick={() => window.open(experience.linkedin_link, "_blank")}
@@ -53,22 +86,12 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({ experience }) => {
           >
             <img
               src={linkedin as string}
-              alt="github"
+              alt="linkedin"
               className="w-5 h-5 object-contain"
             />
           </div>
         </div>
-      </div>
-      <ul className="mt-5 list-disc ml-5 space-y-2">
-        {experience.points.map((point, index) => (
-          <li
-            key={`experience-point-${index}`}
-            className="text-white-100 text-[14px] padding-left-1 tracking-wider"
-          >
-            {point}
-          </li>
-        ))}
-      </ul>
+      )}
     </VerticalTimelineElement>
   );
 };
