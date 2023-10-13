@@ -37,133 +37,133 @@ import { ITechnology, ITool } from "../typings/common.types";
 export const technologies: ITechnology[] = [
   {
     name: "HTML 5",
-    technologyImgUrl: html,
+    image: html,
   },
   {
     name: "CSS 3",
-    technologyImgUrl: css,
+    image: css,
   },
   {
     name: "JavaScript",
-    technologyImgUrl: javascript,
+    image: javascript,
   },
   {
     name: "TypeScript",
-    technologyImgUrl: typescript,
+    image: typescript,
   },
   {
-    name: "React JS",
-    technologyImgUrl: reactjs,
+    name: "React",
+    image: reactjs,
   },
   {
-    name: "Redux Toolkit",
-    technologyImgUrl: redux,
+    name: "Redux",
+    image: redux,
   },
   {
-    name: "Tailwind CSS",
-    technologyImgUrl: tailwind,
+    name: "Tailwind",
+    image: tailwind,
   },
   {
-    name: "Node JS",
-    technologyImgUrl: nodejs,
+    name: "Node",
+    image: nodejs,
   },
   {
     name: "MongoDB",
-    technologyImgUrl: mongodb,
+    image: mongodb,
   },
   {
-    name: "Three JS",
-    technologyImgUrl: threejs,
+    name: "Three.js",
+    image: threejs,
   },
   {
     name: "git",
-    technologyImgUrl: git,
+    image: git,
   },
   {
     name: "figma",
-    technologyImgUrl: figma,
+    image: figma,
   },
   {
     name: "docker",
-    technologyImgUrl: docker,
+    image: docker,
   },
 ];
 
 export const tools: ITool[] = [
   {
     name: "Intercom",
-    toolImgUrl: intercom,
+    image: intercom,
   },
   {
     name: "Zendesk",
-    toolImgUrl: zendesk,
+    image: zendesk,
   },
   {
     name: "HubSpot",
-    toolImgUrl: hubspot,
+    image: hubspot,
   },
   {
     name: "Metabase",
-    toolImgUrl: metabase,
+    image: metabase,
   },
   {
     name: "Slack",
-    toolImgUrl: slack,
+    image: slack,
   },
   {
     name: "Jira",
-    toolImgUrl: jira,
+    image: jira,
   },
   {
     name: "Miro",
-    toolImgUrl: miro,
+    image: miro,
   },
   {
-    name: "MongoDB Compass",
-    toolImgUrl: mongoDbCompass,
+    name: "Compass",
+    image: mongoDbCompass,
   },
   {
     name: "Notion",
-    toolImgUrl: notion,
+    image: notion,
   },
   {
     name: "Zapier",
-    toolImgUrl: zapier,
+    image: zapier,
   },
   {
     name: "Sentry",
-    toolImgUrl: sentry,
+    image: sentry,
   },
   {
     name: "Kibana",
-    toolImgUrl: kibana,
+    image: kibana,
   },
   {
-    name: "Google Cloud",
-    toolImgUrl: googleCloud,
+    name: "GCP",
+    image: googleCloud,
   },
   {
-    name: "Cloud Build",
-    toolImgUrl: cloudBuild,
+    name: "GC Build",
+    image: cloudBuild,
   },
   {
-    name: "Cloud Run",
-    toolImgUrl: cloudRun,
+    name: "GC Run",
+    image: cloudRun,
   },
   {
-    name: "Amazon Web Services",
-    toolImgUrl: aws,
+    name: "AWS",
+    image: aws,
   },
   {
     name: "Stripe",
-    toolImgUrl: stripe,
+    image: stripe,
   },
   {
     name: "Elastic",
-    toolImgUrl: elastic,
+    image: elastic,
   },
   {
     name: "Retool",
-    toolImgUrl: retool,
+    image: retool,
   },
 ];

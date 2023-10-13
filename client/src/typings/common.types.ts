@@ -18,12 +18,12 @@ export interface ITestimonial {
 
 export interface ITechnology {
   name: string;
-  technologyImgUrl: ImageFile;
+  image: ImageFile;
 }
 
 export interface ITool {
   name: string;
-  toolImgUrl: ImageFile;
+  image: ImageFile;
 }
 
 export interface IService {

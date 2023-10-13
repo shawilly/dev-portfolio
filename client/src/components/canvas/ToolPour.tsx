@@ -1,13 +1,18 @@
-import type { PlaneProps } from "@react-three/cannon";
+import type { PlaneProps, Triplet } from "@react-three/cannon";
 import { Physics, useBox, usePlane } from "@react-three/cannon";
-import { Decal, OrbitControls, useTexture } from "@react-three/drei";
+import {
+  Decal,
+  OrbitControls,
+  RenderTexture,
+  Text,
+  useTexture,
+} from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
-import React, { Suspense, useRef, useState } from "react";
-import type { InstancedMesh, Mesh } from "three";
-import type { OrbitControls as OrbitControlsImpl } from "three-stdlib";
-import catImage from "../../assets/cat.png";
+import React, { Suspense, useEffect, useRef, useState } from "react";
+import type { InstancedMesh, Mesh, Texture } from "three";
 import { ITechnology, ITool } from "../../typings/common.types";
 import { useMediaQuery } from "../../utils/MobileDetector";
+import { getNextElements } from "../../utils/nextImages";
 import Loader from "../Loader";
 
 function Plane(props: PlaneProps) {
@@ -18,20 +23,20 @@ function Plane(props: PlaneProps) {
   return (
     <mesh ref={ref} receiveShadow>
       <planeGeometry args={[1000, 1000]} />
-      <shadowMaterial color="#ffffff" transparent opacity={0.2} />
+      <shadowMaterial color="#bcc8c8" transparent opacity={1} />
     </mesh>
   );
 }
 
 type InstancedGeometryProps = {
+  name: string;
   image: string;
   position: [number, number, number];
 };
 
-const Box = ({ image, position }: InstancedGeometryProps) => {
+const Box = ({ name, image, position }: InstancedGeometryProps) => {
   const [hovered, hover] = useState(false);
   const [clicked, click] = useState(false);
-  const [cat] = useTexture([catImage as string]);
   const [decal] = useTexture([image]);
   const [ref] = useBox(
     () => ({
@@ -41,6 +46,7 @@ const Box = ({ image, position }: InstancedGeometryProps) => {
     }),
     useRef<InstancedMesh>(null)
   );
+
   return (
     <mesh
       receiveShadow
@@ -53,12 +59,15 @@ const Box = ({ image, position }: InstancedGeometryProps) => {
     >
       <boxGeometry args={[1, 1]} />
       <meshStandardMaterial
+        roughness={0}
+        metalness={1.8}
         polygonOffset
         polygonOffsetFactor={-0.01}
-        color={hovered ? "#549fcf" : "#cff6ff"}
+        color={hovered ? "#ebe8ed" : "#f1f7f8"}
       />
       <Decal
-        map={clicked ? cat : decal}
+        key={name}
+        map={decal}
         rotation={[0, 0, 0]}
         position={[0, 0, 1]}
         scale={[0.6, 0.6, 1.2]}
@@ -77,38 +86,34 @@ enum TECH {
   TOOLS = "tools",
 }
 
+const positions: Triplet[] = [
+  [0.1, 5, 0],
+  [0, 10, -1],
+  [1, 12, -0.5],
+  [0.5, 7, -3],
+  [2, 0, -2],
+];
+
 const ToolPour = ({ technologies, tools }: ToolPourProps) => {
   const isMobile = useMediaQuery("(max-width: 880px)");
-  const links = {
-    tech: technologies.map((t) => t.technologyImgUrl as string),
-    tools: tools.map((t) => t.toolImgUrl as string),
-  };
 
   const [tech, setTech] = useState<TECH>(TECH.TECH);
-  const [techImages, setTechImages] = useState<string[]>([
-    links.tech[0],
-    links.tech[1],
-    links.tech[2],
-    links.tech[3],
-    links.tech[4],
-  ]);
-  const [toolImages, setToolImages] = useState<string[]>([
-    links.tools[0],
-    links.tools[1],
-    links.tools[2],
-    links.tools[3],
-    links.tools[4],
-  ]);
-  const [images, setImages] = useState<string[]>(techImages);
+  const [currentTech, setCurrentTech] = useState<ITechnology[]>(
+    technologies.slice(0, 5)
+  );
+  const [currentTools, setCurrentTools] = useState<ITool[]>(tools.slice(0, 5));
+  const [techConstants, setTechConstants] = useState<ITechnology[] | ITool[]>(
+    currentTech
+  );
 
   const setProps = (tech: TECH) => {
     if (tech === TECH.TECH) {
-      setTechImages(getNextThreeImages(techImages, links.tech));
-      setImages(techImages);
+      setCurrentTech(getNextElements(currentTech, technologies));
+      setTechConstants(currentTech);
       setTech(TECH.TECH);
     } else {
-      setToolImages(getNextThreeImages(toolImages, links.tools));
-      setImages(toolImages);
+      setCurrentTools(getNextElements(currentTools, tools));
+      setTechConstants(currentTools);
       setTech(TECH.TOOLS);
     }
   };
@@ -119,29 +124,33 @@ const ToolPour = ({ technologies, tools }: ToolPourProps) => {
       dpr={[1, 2]}
       gl={{ alpha: false }}
       camera={{
-        position: isMobile ? [-2.5, 3.6, 5] : [-1, 5, 5],
-        fov: isMobile ? 30 : 45,
+        position: isMobile ? [-2.5, 3.6, 5] : [-2, 5, 5],
+        fov: isMobile ? 30 : 32,
       }}
       onPointerMissed={() =>
         setProps(tech === TECH.TECH ? TECH.TOOLS : TECH.TECH)
       }
+      className="w-full h-full top-10 rounded-[20px]"
     >
       <Suspense fallback={<Loader />}>
-        <color attach="background" args={["#060816"]} />
+        <color attach="background" args={["#edede9"]} />
         <ambientLight />
         <directionalLight
           position={[10, 10, 10]}
           castShadow
           shadow-mapSize={[2048, 2048]}
         />
-        <OrbitControls enableRotate={false} enableZoom={false} />
+        <OrbitControls enableRotate enableZoom={false} />
         <Physics>
           <Plane position={[0, -2.5, 0]} />
-          <Box key={images[0]} image={images[0]} position={[0.1, 5, 0]} />
-          <Box key={images[1]} image={images[1]} position={[0, 10, -1]} />
-          <Box key={images[2]} image={images[2]} position={[1, 12, -0.5]} />
-          <Box key={images[3]} image={images[3]} position={[0.5, 7, -3]} />
-          <Box key={images[4]} image={images[4]} position={[2, 0, -2]} />
+          {techConstants.map((tech, index) => (
+            <Box
+              key={tech.name}
+              name={tech.name}
+              image={tech.image as string}
+              position={positions[index]}
+            />
+          ))}
         </Physics>
       </Suspense>
     </Canvas>
@@ -149,21 +158,3 @@ const ToolPour = ({ technologies, tools }: ToolPourProps) => {
 };
 
 export default ToolPour;
-
-function getNextThreeImages(current: string[], array: string[]): string[] {
-  if (array.length < 3) {
-    throw new Error("The array must have at least 3 elements.");
-  }
-
-  const start = array.findIndex((el) => el === current[current.length - 1]) + 1;
-
-  const length = array.length;
-
-  const indexes = [];
-
-  for (let i = 0; i < 5; i++) {
-    indexes.push((start + i) % length);
-  }
-
-  return indexes.map((index) => array[index]);
-}
