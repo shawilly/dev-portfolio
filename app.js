@@ -24,16 +24,16 @@ app.use(pinoHttp);
 
 app.use(express.static("client/build"));
 
-// Example endpoint
+// Main app route
 app.get("/", async (req, res) => {
   // Use basic logger without HTTP request info
   logger.info({
     logField: "custom-entry",
     arbitraryField: "custom-entry",
-  }); // Example of structured logging
+  });
   // Use request-based logger with log correlation
   req.log.info("Child logger with trace Id."); // https://cloud.google.com/run/docs/logging#correlate-logs
-  res.send("Hello World!");
+  res.send("Site loaded.");
 });
 
 export default app;
