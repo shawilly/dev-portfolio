@@ -1,26 +1,27 @@
 {
-  "env": {
-    "browser": true,
-    "node": true,
-    "es6": true
-  },
-  "extends": ["google"],
-  "globals": {
-    "Atomics": "readonly",
-    "SharedArrayBuffer": "readonly"
-  },
-  "parserOptions": {
-    "ecmaVersion": 2020,
-    "sourceType": "module"
-  },
-  "plugins": ["prettier"],
-  "rules": {
-    "prettier/prettier": "error"
-  },
-  "settings": {
-    "react": {
-      "version": "detect"
+  "extends": ["../../.eslintrc-legacy.json"],
+  "ignorePatterns": ["!**/*"],
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
+      "rules": {}
+    },
+    {
+      "files": ["*.ts", "*.tsx"],
+      "parserOptions": {
+        "project": ["apps/internal-api/tsconfig.*?.json"]
+      },
+      "extends": ["plugin:@nx/typescript"],
+      "rules": {
+        "no-return-await": "error",
+        "@typescript-eslint/no-floating-promises": ["error"],
+        "@typescript-eslint/no-meaningless-void-operator": ["error"],
+        "@typescript-eslint/await-thenable": ["error"]
+      }
+    },
+    {
+      "files": ["*.js", "*.jsx"],
+      "rules": {}
     }
-  },
-  "ignorePatterns": ["client/build/*.js"] // Add this line to ignore build files
+  ]
 }

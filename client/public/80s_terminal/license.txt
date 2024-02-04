@@ -1,0 +1,8 @@
+Model Information:
+* title:	80's Terminal
+* source:	https://sketchfab.com/3d-models/80s-terminal-03ba55722b1b4f6496c55f3aee650bbc
+* author:	SeanNicolas (https://sketchfab.com/SeanNicolas)
+
+Model License:
+* license type:	SKETCHFAB Standard (https://sketchfab.com/licenses)
+* requirements:	Under basic restrictions, use worldwide, on all types of media, commercially or not, and in all types of derivative works

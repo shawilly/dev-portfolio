@@ -82,6 +82,14 @@ The project is organized as follows:
 - **`src/`**: This directory contains the source code of the project.
 - **`public/`**: Public assets like images and static files.
 
+## Deployment
+
+This `client` folder holds the site's code that will be visible. In order for the node server to show the most recent changes, you will have to run:
+
+`npm run build`
+
+Which will start the `vite` build of the client. Once built, you can follow the `README` in the main folder if you want to run the node server to make sure your build was successful before pushing.
+
 ## Contributing
 
 I welcome contributions from the community! If you'd like to contribute to this project, please follow these guidelines:
