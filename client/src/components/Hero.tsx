@@ -2,6 +2,8 @@ import { motion } from 'framer-motion';
 import React from 'react';
 import { styles } from '../styles';
 import { ComputersCanvas } from './canvas';
+import { SocialIcon } from 'react-social-icons';
+import { socialMediaLinks } from '../constants/socialMedia';
 
 const Hero: React.FC<{}> = () => {
     return (
@@ -10,18 +12,23 @@ const Hero: React.FC<{}> = () => {
                 className={`absolute inset-0 top-[120px] max-w-7xl mx-auto ${styles.paddingX} flex flex-row items-start gap-5`}
             >
                 <div className="flex flex-col justify-center items-center mt-5">
-                    <div className="w-5 h-5 rounded-full bg-[#414767]" />
-                    <div className="w-1 sm:h-80 h-40 violet-gradient" />
+                    <div className="w-5 h-5 rounded-full bg-secondary inverse-green-gradient" />
+                    <div className="w-1 sm:h-80 h-40 green-gradient z-1" />
                 </div>
 
-                <div className="object-top">
-                    <h1 className={`${styles.heroHeadText} text-[#414767]`}>
-                        Hi, I'm <span className="text-[#915EFF]">Shane</span>
+                <div className="z-10">
+                    <h1 className={`${styles.heroHeadText}`}>
+                        Hi, I'm <span className="text-[#414767]">Shane</span>
                     </h1>
-                    <p className={`${styles.heroSubText} mt-2 text-[#414767]`}>
+                    <p className={`text-[#414767] ${styles.heroSubText} mt-2`}>
                         Full Stack Software Developer <br className="sm:block hidden" />
-                        <span className="text-[#915EFF]">Medical BioTechnologist</span>
+                        <span className="text-secondary lg:text-[25px] sm:text-[21px] xs:text-[15px] text-[11px] lg:leading-[35px]">Medical BioTechnologist</span>
                     </p>
+                    <div className="flex justify-left items-center gap-4 mt-4">
+                        {socialMediaLinks.map((link: string, index: number) => (
+                            <SocialIcon url={link} key={index} />
+                        ))}
+                    </div>
                 </div>
             </div>
 

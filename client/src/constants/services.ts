@@ -7,7 +7,7 @@ export const services: IService[] = [
         icon: programming,
     },
     {
-        title: 'React Native Developer',
+        title: 'Website Development',
         icon: computer,
     },
     {
@@ -15,7 +15,7 @@ export const services: IService[] = [
         icon: robot,
     },
     {
-        title: 'Medical BioTechnologist',
+        title: 'Medical BioTechnology',
         icon: presentation,
     },
 ];

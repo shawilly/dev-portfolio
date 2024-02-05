@@ -4,12 +4,26 @@ import { close, download, me, menu } from '../assets';
 import { navLinks } from '../constants';
 import { styles } from '../styles';
 import { useMediaQuery } from '../utils/MobileDetector';
+import { resumeDownload } from '../constants/resume-download';
 
 const Navbar = () => {
     const isMobile = useMediaQuery('(max-width: 800px)');
+    const isTablet = useMediaQuery('(max-width: 1024px)');
     const [active, setActive] = useState('');
     const [toggle, setToggle] = useState(false);
     const [scrolled, setScrolled] = useState(false);
+
+    const navBarColour = (clicked: boolean) => {
+        let colour = '';
+
+        if (scrolled) {
+            colour = clicked ? '[#F9F9F9]' : 'secondary';
+        } else {
+            colour = 'tertiary';
+        }
+
+        return `text-${colour}`;
+    };
 
     useEffect(() => {
         const handleScroll = () => {
@@ -42,31 +56,34 @@ const Navbar = () => {
                     }}
                 >
                     <img src={me as string} alt="portait" className="w-9 h-9 object-contain rounded-full" />
-                    <p className="text-#9fc3e6 text-[18px] font-bold cursor-pointer flex ">
-                        Shane &nbsp;
-                        {isMobile ? null : <span> | Software Developer</span>}
+                    <p className="text-[#F9F9F9] text-[18px] font-bold cursor-pointer flex ">
+                        Shane
+                        {isTablet ? null : <span>, Software Developer</span>}
                     </p>
                 </Link>
 
-                <Link
-                    to="resumeDownload"
-                    className="flex items-center gap-5"
-                    onClick={() => {
-                        setActive('');
-                        window.scrollTo(0, 0);
-                    }}
-                >
-                    <img src={download as string} alt="portait" className="w-9 h-9 object-fit rounded-full" />
-                    <p className="text-[#915EFF] text-[25px] font-bold cursor-pointer flex ">Resume</p>
-                </Link>
+                {scrolled && (
+                    <Link
+                        to={resumeDownload}
+                        className="flex items-center gap-5"
+                        onClick={() => {
+                            setActive('');
+                            window.scrollTo(0, 0);
+                        }}
+                    >
+                        <p className="text-[#915EFF] text-[12px] font-bold cursor-pointer flex opacity-75">
+                            {isMobile ? 'Too long; didn`t read' : 'tl;dr'}
+                        </p>
+                    </Link>
+                )}
 
                 <ul className={`${isMobile ? 'hidden' : ''} list-none flex flex-row gap-10`}>
                     {navLinks.map((nav) => (
                         <li
                             key={nav.id}
-                            className={`${
-                                active === nav.title ? 'text-#f9f9f9' : 'text-secondary'
-                            } hover:text-#f9f9f9 text-[18px] font-medium cursor-pointer`}
+                            className={`${navBarColour(
+                                active === nav.title,
+                            )} hover:text-#f9f9f9 text-[18px] font-medium cursor-pointer`}
                             onClick={() => setActive(nav.title)}
                         >
                             <a href={`#${nav.id}`}>{nav.title}</a>

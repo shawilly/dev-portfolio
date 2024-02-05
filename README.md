@@ -73,7 +73,7 @@ To get started with this project, follow these steps:
    npm run dev
    ```
 
-4. Open your browser and visit `http://localhost:3000` to see the portfolio site in action.
+4. Open your browser and visit `http://localhost:8080` to see the portfolio site in action.
 
 ## Project Structure
 

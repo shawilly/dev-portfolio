@@ -31,8 +31,10 @@ app.get("/", async (req, res) => {
     logField: "custom-entry",
     arbitraryField: "custom-entry",
   });
+
   // Use request-based logger with log correlation
   req.log.info("Child logger with trace Id."); // https://cloud.google.com/run/docs/logging#correlate-logs
+  
   res.send("Site loaded.");
 });
 

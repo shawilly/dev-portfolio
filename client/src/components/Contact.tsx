@@ -1,13 +1,11 @@
-import React, { useRef, useState } from 'react';
-import { styles } from '../styles';
-import { EarthCanvas } from './canvas';
-import { SectionWrapper } from '../hoc';
-import { slideIn } from '../utils/motion';
-import { motion } from 'framer-motion';
 import emailjs from '@emailjs/browser';
+import { motion } from 'framer-motion';
+import React, { useRef, useState } from 'react';
 import { contact } from '../constants';
-import { socialMediaLinks } from '../constants/socialMedia';
-import { SocialIcon } from 'react-social-icons';
+import { SectionWrapper } from '../hoc';
+import { styles } from '../styles';
+import { slideIn } from '../utils/motion';
+import { EarthCanvas } from './canvas';
 
 interface FormInput {
     name: string;
@@ -103,11 +101,11 @@ const ContactSection = () => {
         <div className="xl:mt-12 xl:flex-row flex-col-reverse flex gap-10 overflow-hidden">
             <motion.div
                 variants={slideIn('left', 'tween', 0.2, 1)}
-                className="flex-[0.75] bg-black-100 p-8 rounded-2xl"
+                className="flex-[0.75] h-screen bg-black-100 p-8 rounded-2xl"
             >
-                <p className={styles.sectionSubText}>Get in touch</p>
+                <p className={styles.sectionSubText}>Let's talk</p>
                 <h3 className={styles.sectionHeadText}>Contact.</h3>
-                <form ref={formRef} onSubmit={handleSubmit} className="mt-12 flex flex-col gap-8">
+                <form ref={formRef} onSubmit={handleSubmit} className="mt-12 mb-12 flex flex-col gap-8">
                     {createFormFields([
                         { name: 'name', value: form.name },
                         { name: 'email', value: form.email },
@@ -120,12 +118,6 @@ const ContactSection = () => {
                         {loading ? 'Sending...' : 'Send'}
                     </button>
                 </form>
-                <h2 className="text-center text-secondary items-center">I'm here too.</h2>
-                <div className="flex justify-center items-center gap-4 mt-4">
-                    {socialMediaLinks.map((link: string, index: number) => (
-                        <SocialIcon url={link} key={index} />
-                    ))}
-                </div>
             </motion.div>
             <motion.div
                 variants={slideIn('right', 'tween', 0.2, 1)}

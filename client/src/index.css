@@ -33,23 +33,32 @@
   ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
-.green-gradient {
-  background: #fff; /* Set a light background color */
-  background: -webkit-linear-gradient(
-    to right,
-    #0f380f,
-    #8fb258
-  ); /* Gradient colors with the darker color as the LinkedIn color */
-  background: linear-gradient(to right, #ceeeff, #91b5c9);
-  position: relative;
-}
-
 .violet-gradient {
   background: #804dee;
   background: linear-gradient(-90deg, #804dee 0%, rgba(60, 51, 80, 0) 100%);
   background: -webkit-linear-gradient(
     -90deg,
     #804dee 0%,
+    rgba(60, 51, 80, 0) 100%
+  );
+}
+
+.green-gradient {
+  background: #05aca3;
+  background: linear-gradient(-90deg, #05aca3 0%, rgba(60, 51, 80, 0) 100%);
+  background: -webkit-linear-gradient(
+    -90deg,
+    #05aca3 0%,
+    rgba(60, 51, 80, 0) 100%
+  );
+}
+
+.inverse-green-gradient {
+  background: #05aca3;
+  background: linear-gradient(90deg, #05aca3 0%, rgba(60, 51, 80, 0) 100%);
+  background: -webkit-linear-gradient(
+    90deg,
+    #05aca3 0%,
     rgba(60, 51, 80, 0) 100%
   );
 }

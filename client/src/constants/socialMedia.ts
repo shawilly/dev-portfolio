@@ -1,5 +1,5 @@
 const InstagramURL = 'https://www.instagram.com/fatmanlifting/';
-const gitHubURL = 'https://github.com/shawilly/shawilly';
+const gitHubURL = 'https://github.com/shawilly';
 const liProfile = 'https://www.linkedin.com/in/shanebarrywilliams';
 const socialMediaLinks: string[] = [InstagramURL, gitHubURL, liProfile];
 
