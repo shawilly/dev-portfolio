@@ -1,2 +1,4 @@
 build/*.js
 client/build/*.js
+*.test.js
+*.test.ts

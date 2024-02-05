@@ -1,5 +1,3 @@
-/* eslint-disable object-curly-spacing */
-/* eslint-disable quotes */
 import app from "./app.js";
 import { logger, initLogCorrelation } from "./utils/logging.js";
 import { fetchProjectId } from "./utils/metadata.js";
